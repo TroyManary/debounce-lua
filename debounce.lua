@@ -12,7 +12,8 @@ debounce.OVER = true
 --   debUnder:
 --   debOver
 -------------------------------------------------------------------------------
-function debounce.new(threshold, debUnder, debOver )
+function debounce.new(threshold, debUnder, debOver)
+--print("DEBOUNCE:", threshold, debUnder, debOver)
   local self = setmetatable({}, debounce)
   self.threshold = threshold
   self.debUnder = debUnder
@@ -49,17 +50,23 @@ function debounce.update(self, value)
     if (value > self.threshold) then
 	  self.counter = self.counter + 1
 	  if (self.counter > self.debOver) then
+	    --print("DEBOUNCE:", "OVER",self.counter)
 	    self.state = self.OVER
 		self.counter = 0
 	  end
+	else
+	  self.counter = 0
 	end
   else
     if (value < self.threshold) then
 	  self.counter = self.counter + 1
 	  if (self.counter > self.debUnder) then
+	    --print("DEBOUNCE:","UNDER",self.counter)
 	    self.state = self.UNDER
 		self.counter = 0
 	  end
+	else
+	  self.counter = 0
     end
   end
   

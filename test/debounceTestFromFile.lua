@@ -1,3 +1,4 @@
+package.path = package.path .. ';..\\?.lua'
 debounce = require"debounce"
 local threshold = 10
 local debOver = 5
@@ -8,13 +9,13 @@ local result
 local testPass = true
 local debFilter = debounce.new(threshold,debUnder,debOver)
 
-file = arg[1] or "test\\dataFile.txt"
+file = arg[1] or "dataFile.txt"
 autoVerify = arg[2] or false
 
 
 dataFile = io.open(file, "r")
 if (autoVerify) then
-  resultFile = io.open("test\\resultFile.txt", "r")
+  resultFile = io.open("resultFile.txt", "r")
 end
 
 repeat
