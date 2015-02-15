@@ -12,7 +12,6 @@ local debFilter = debounce.new(threshold,debUnder,debOver)
 file = arg[1] or "dataFile.txt"
 autoVerify = arg[2] or false
 
-
 dataFile = io.open(file, "r")
 if (autoVerify) then
   resultFile = io.open("resultFile.txt", "r")
@@ -29,12 +28,13 @@ repeat
     result = debFilter:update(data[0])
 	if (autoVerify) then
 	  resultStr = resultFile:read()
-	  if (math.abs(result-tonumber(resultStr))>0.00000001) then
+	  expectedResult = (resultStr == "true")
+	  if (expectedResult ~= result) then
 		print("Test Failed: Result=", result," Expected:",resultStr)
 		testPass = false
 	  end
 	else
-	  print(data[0], result)
+	  print(result)
 	end
   end
 until not str
